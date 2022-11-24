@@ -106,6 +106,7 @@ export default function Register() {
             name="password"
             className={inputClasses}
             onChange={handleChange}
+            autoComplete="on"
           />
           <input
             type="password"
@@ -113,9 +114,10 @@ export default function Register() {
             name="confirmPassword"
             className={inputClasses}
             onChange={handleChange}
+            autoComplete="on"
           />
           <button className="bg-purple-500 text-white px-8 py-4 border-none font-bold cursor-pointer text-base uppercase transition-all rounded-xl hover:bg-purple-400">
-            Create User
+            Sign Up
           </button>
           <span className="text-white uppercase">
             Already have account ?{" "}
@@ -123,7 +125,7 @@ export default function Register() {
               to="/login"
               className="font-bold no-underline text-purple-400"
             >
-              Login
+              Sign in
             </Link>
           </span>
         </form>
