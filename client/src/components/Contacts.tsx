@@ -14,7 +14,7 @@ export default function Contacts({
 }: ContactsProps) {
   const [currentUserName, setCurrentUserName] = useState<string>("");
   const [currentUserImage, setCurrentUserImage] = useState<string>("");
-  const [currentSelected, setCurrentSelected] = useState<number>(0);
+  const [currentSelected, setCurrentSelected] = useState<number>();
 
   useEffect(() => {
     if (currentUser) {

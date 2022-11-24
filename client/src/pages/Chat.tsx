@@ -1,7 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import ChatContainer from "../components/ChatContainer";
 import Contacts from "../components/Contacts";
+import Welcome from "../components/Welcome";
 import { User } from "../types";
 import { allUsersRoute } from "../utils/APIRoutes";
 
@@ -48,6 +50,13 @@ export default function Chat() {
           currentUser={currentUser}
           changeChat={handleChatChange}
         />
+        <div className="col-span-3">
+          {currentChat ? (
+            <ChatContainer currentChat={currentChat} />
+          ) : (
+            <Welcome currentUser={currentUser} />
+          )}
+        </div>
       </div>
     </div>
   );
