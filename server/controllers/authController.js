@@ -18,7 +18,7 @@ module.exports.register = async (req, res, next) => {
       username,
       password: hashedPassword,
     });
-    delete user.password;
+    user.password = null;
     return res.json({
       status: true,
       user,
@@ -41,7 +41,7 @@ module.exports.login = async (req, res, next) => {
     if (!isPasswordValid)
       return res.json({ msg: "Incorrect username or password", status: false });
 
-    delete user.password;
+    user.password = null;
 
     return res.json({
       status: true,

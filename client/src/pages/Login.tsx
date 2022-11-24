@@ -24,7 +24,7 @@ interface loginData {
 /* MAIN */
 export default function Login() {
   const navigate = useNavigate();
-  const [values, setValues] = useState<loginData>({} as loginData);
+  const [values, setValues] = useState({} as loginData);
 
   /* Logined Redirect */
   useEffect(() => {

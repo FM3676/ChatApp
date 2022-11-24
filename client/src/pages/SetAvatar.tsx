@@ -16,7 +16,8 @@ export default function SetAvatar() {
   const [selectedAvatar, setSelectedAvatar] = useState<number>(NaN);
 
   const setProfilePicture = async () => {
-    if (!selectedAvatar) return toastErrorLog("Please select an avatar");
+    if (Number.isNaN(selectedAvatar))
+      return toastErrorLog("Please select an avatar");
 
     const user = await JSON.parse(
       localStorage.getItem("chat-app-user") as string
@@ -35,7 +36,7 @@ export default function SetAvatar() {
 
   useEffect(() => {
     async function redirectToLogin() {
-      if (localStorage.getItem("chat-app-user")) navigate("/login");
+      if (!localStorage.getItem("chat-app-user")) navigate("/login");
     }
     redirectToLogin();
   }, []);
@@ -49,7 +50,6 @@ export default function SetAvatar() {
         );
         const buffer = new Buffer(image.data);
         data.push(buffer.toString("base64"));
-        console.log(buffer);
       }
       setAvatars(data);
       setIsLoading(false);

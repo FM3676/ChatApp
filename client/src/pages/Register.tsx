@@ -21,7 +21,7 @@ interface registerData {
 /* MAIN */
 export default function Register() {
   const navigate = useNavigate();
-  const [values, setValues] = useState<registerData>({} as registerData);
+  const [values, setValues] = useState({} as registerData);
   const handleSubmit: FormEventHandler<HTMLFormElement> | undefined = async (
     e
   ) => {
@@ -35,7 +35,7 @@ export default function Register() {
     });
     if (data.status === false) return toastErrorLog(data.msg);
     if (data.status === true) {
-      localStorage.setItem("chat-app-use", JSON.stringify(data.user));
+      localStorage.setItem("chat-app-user", JSON.stringify(data.user));
       navigate("/");
     }
   };
