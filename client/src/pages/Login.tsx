@@ -7,9 +7,10 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "../assets/logo.svg";
 import axios from "axios";
-import { ToastContainer, toast, ToastOptions } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { loginRoute } from "../utils/APIRoutes";
+import { toastErrorLog } from "../utils/toastLog";
 /* CONST */
 const inputClasses =
   "bg-transparent p-4 border-2 rounded-md text-white w-full border-purple-900 focus:outline-none focus:border-purple-500";
@@ -20,20 +21,10 @@ interface loginData {
   password: string;
 }
 
-const toastOptions: ToastOptions = {
-  position: "bottom-right",
-  autoClose: 8000,
-  pauseOnHover: true,
-  draggable: true,
-  theme: "dark",
-};
-
 /* MAIN */
 export default function Login() {
   const navigate = useNavigate();
   const [values, setValues] = useState<loginData>({} as loginData);
-
-  const toastErrorLog = (value: string) => toast.error(value, toastOptions);
 
   /* Logined Redirect */
   useEffect(() => {

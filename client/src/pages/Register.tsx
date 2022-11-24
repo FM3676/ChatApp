@@ -5,6 +5,7 @@ import axios from "axios";
 import { ToastContainer, toast, ToastOptions } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { registerRoute } from "../utils/APIRoutes";
+import { toastErrorLog } from "../utils/toastLog";
 /* CONST */
 const inputClasses =
   "bg-transparent p-4 border-2 rounded-md text-white w-full border-purple-900 focus:outline-none focus:border-purple-500";
@@ -17,19 +18,10 @@ interface registerData {
   confirmPassword: string;
 }
 
-const toastOptions: ToastOptions = {
-  position: "bottom-right",
-  autoClose: 8000,
-  pauseOnHover: true,
-  draggable: true,
-  theme: "dark",
-};
-
 /* MAIN */
 export default function Register() {
   const navigate = useNavigate();
   const [values, setValues] = useState<registerData>({} as registerData);
-  const toastErrorLog = (value: string) => toast.error(value, toastOptions);
   const handleSubmit: FormEventHandler<HTMLFormElement> | undefined = async (
     e
   ) => {
