@@ -48,14 +48,14 @@ export default function ChatInput({ handleSendMsg }: ChatInputInterface) {
         onSubmit={(e) => sendChat(e)}
       >
         <input
-          className="h-3/5 w-11/12 bg-transparent border-none text-white pl-4 text-xl selection:bg-indigo-500 focus:outline-none"
+          className=" w-11/12 bg-transparent border-none text-white pl-4 text-xl selection:bg-indigo-500 focus:outline-none"
           type="text"
           placeholder="Type your message."
           onChange={(e) => setMsg(e.target.value)}
           value={msg}
         />
         <button
-          className="py-1 px-8 flex justify-center items-center bg-indigo-500 border-none"
+          className="py-1 px-8 flex justify-center items-center bg-indigo-500 border-none rounded-full"
           type="submit"
         >
           <IoMdSend className="text-3xl text-white" />

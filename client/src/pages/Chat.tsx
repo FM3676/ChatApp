@@ -52,7 +52,10 @@ export default function Chat() {
         />
         <div className="col-span-3">
           {currentChat ? (
-            <ChatContainer currentChat={currentChat} />
+            <ChatContainer
+              currentChat={currentChat}
+              currentUser={currentUser}
+            />
           ) : (
             <Welcome currentUser={currentUser} />
           )}
