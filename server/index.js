@@ -4,10 +4,12 @@ const mongoose = require("mongoose");
 const authRoutes = require("./routes/authRoutes");
 const messageRoute = require("./routes/messageRoutes");
 const app = express();
-const socket = require("socket.io");
+const Server = require("socket.io").Server
 require("dotenv").config();
 
-app.use(cors());
+app.use(
+  cors()
+);
 app.use(express.json());
 
 app.use("/api/auth", authRoutes);
@@ -25,10 +27,18 @@ const server = app.listen(process.env.PORT, () => {
   console.log(`Server Started on Post ${process.env.PORT}`);
 });
 
-const io = socket(server, {
+// const io = socket(server, {
+//   cors: {
+//     origin: "http://localhost:3000",
+//     methods: ["GET", "POST"],
+//     credentials: true,
+//   },
+// });
+
+const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3000",
-    Credential: true,
+    origin: "http://127.0.0.1:5173",
+    credentials: true,
   },
 });
 
@@ -42,6 +52,6 @@ io.on("connection", (socket) => {
 
   socket.on("send-msg", (data) => {
     const sendUserSocket = onlineUsers.get(data.to);
-    if (sendUserSocket) socket.to(sendUserSocket).emit("msg-recieve", data.msg);
+    if (sendUserSocket) socket.to(sendUserSocket).emit("msg-recieve", data.message);
   });
 });

@@ -1,14 +1,16 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router";
 import ChatContainer from "../components/ChatContainer";
 import Contacts from "../components/Contacts";
 import Welcome from "../components/Welcome";
 import { User } from "../types";
-import { allUsersRoute } from "../utils/APIRoutes";
+import { allUsersRoute, HOST } from "../utils/APIRoutes";
+import { io, Socket } from "socket.io-client";
 
 export default function Chat() {
   const navigate = useNavigate();
+  const socket = useRef<Socket>();
   const [contacts, setContacts] = useState<User[]>([]);
   const [currentUser, setCurrentUser] = useState({} as User);
   const [currentChat, setcurrentChat] = useState<User>();
@@ -20,6 +22,13 @@ export default function Chat() {
       !user ? navigate("/login") : setCurrentUser(user);
     }
     redirectOrSetUser();
+  }, []);
+
+  useEffect(() => {
+    if (user) {
+      socket.current = io(HOST);
+      socket.current.emit("add-user", user._id);
+    }
   }, []);
 
   useEffect(() => {
@@ -42,19 +51,20 @@ export default function Chat() {
   return (
     <div className="h-screen w-screen flex justify-center items-center gap-4 bg-slate-900">
       <div
-        className="h-4/5 w-4/5 grid grid-cols-10 md:grid-cols-4"
-        style={{ backgroundColor: "#00000076" }}
+        className="grid grid-cols-4"
+        style={{ backgroundColor: "#00000076",height:"85vh",width:"85vw"}}
       >
         <Contacts
           contacts={contacts}
           currentUser={currentUser}
           changeChat={handleChatChange}
         />
-        <div className="col-span-3">
+        <div className="col-span-3 h-full">
           {currentChat ? (
             <ChatContainer
               currentChat={currentChat}
               currentUser={currentUser}
+              socket={socket}
             />
           ) : (
             <Welcome currentUser={currentUser} />
